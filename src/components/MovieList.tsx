@@ -29,8 +29,7 @@ export const MovieList: React.FC<MovieListProps> = ({
     if (data !== undefined && data.Response !== 'False') {
       setMovieList(data.Search);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [searchTerm]);
 
   return (
     <Flex w='100%' direction='column' alignItems='center'>
