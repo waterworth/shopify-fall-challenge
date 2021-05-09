@@ -24,7 +24,7 @@ export const Search: React.FC<SearchProps> = ({onChange}) => {
       <InputGroup>
         <Flex direction='column' align='flex-start' w='100%'>
           <Heading size='l' pb='4'>
-            Movie Title
+            Search by Movie Title
           </Heading>
           <InputLeftElement pointerEvents='none' />
           <Input

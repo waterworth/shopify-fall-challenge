@@ -8,17 +8,21 @@ import {MovieCard} from './MovieCard';
 
 interface MovieListProps {
   searchTerm: string;
+  handleNominate: (movie: MovieDetailsProps) => void;
 }
 
-interface MovieDetailsProps {
-  title: string;
+export interface MovieDetailsProps {
+  Title: string;
   year: string;
   imdbID: string;
   Type: string;
   Poster: string;
 }
 
-export const MovieList: React.FC<MovieListProps> = ({searchTerm}) => {
+export const MovieList: React.FC<MovieListProps> = ({
+  searchTerm,
+  handleNominate,
+}) => {
   const queryClient = useQueryClient();
   const [movieList, setMovieList] = useState<null | MovieDetailsProps[]>(null);
 
@@ -33,7 +37,9 @@ export const MovieList: React.FC<MovieListProps> = ({searchTerm}) => {
   return (
     <Flex w='100%' direction='column' alignItems='center'>
       {movieList
-        ? movieList.map((movie) => <MovieCard id={movie.imdbID} />)
+        ? movieList.map((movie) => (
+            <MovieCard id={movie.imdbID} handleNominate={handleNominate} />
+          ))
         : null}
     </Flex>
   );

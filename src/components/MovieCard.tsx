@@ -13,12 +13,19 @@ import {useQueryClient} from 'react-query';
 import {getCardBgColor} from '../utils/getCardBgColor';
 import useMovieById from '../hooks/getMovieByID';
 import {getScoreBadgeColor} from '../utils/getScoreBadge';
+import {MovieDetailsProps} from './MovieList';
 
 interface MovieCardProps {
   id: string;
+  handleNominate?: (movie: MovieDetailsProps) => void;
+  handleRemove?: (imdbID: string) => void;
 }
 
-export const MovieCard: React.FC<MovieCardProps> = ({id}) => {
+export const MovieCard: React.FC<MovieCardProps> = ({
+  id,
+  handleNominate,
+  handleRemove,
+}) => {
   const queryClient = useQueryClient();
   const [movieDetails, setMovieDetails] = useState();
   const {data} = useMovieById(id);
@@ -28,8 +35,6 @@ export const MovieCard: React.FC<MovieCardProps> = ({id}) => {
       setMovieDetails(data.Search);
     }
   });
-
-  console.log(data);
 
   return (
     <Flex
@@ -44,12 +49,18 @@ export const MovieCard: React.FC<MovieCardProps> = ({id}) => {
       {!data ? (
         <Text>Loading...</Text>
       ) : (
-        <Flex direction='row'>
-          <Box>
-            <Image minW='300px' src={data.Poster}></Image>
-          </Box>
-          <Flex direction='column' maxH='460px' justifyContent='space-between'>
-            <Flex ml='8' alignItems='center' justifyContent='space-between'>
+        <Flex direction={{base: 'column', lg: 'row'}} w='100%'>
+          {data.Poster !== 'N/A' && (
+            <Box margin={{base: '0 auto', lg: '0'}} mb={{base: '8', lg: '0'}}>
+              <Image minW='300px' src={data.Poster}></Image>
+            </Box>
+          )}
+          <Flex direction='column' justifyContent='space-between'>
+            <Flex
+              w='100%'
+              ml='8'
+              alignItems='center'
+              justifyContent='space-between'>
               <Heading textAlign='left' letterSpacing='wide'>
                 {data ? data.Title : null}
               </Heading>
@@ -100,13 +111,30 @@ export const MovieCard: React.FC<MovieCardProps> = ({id}) => {
             </Flex>
             <Divider w='30%' m='8' borderColor='gray.800' />
 
-            <Flex mt='8' ml='8'>
+            <Flex mt={{base: '0', lg: '8'}} ml='8'>
               <Text textAlign='left'>{data ? data.Plot : null}</Text>
             </Flex>
             <Flex mx='8' mt='8' mb='0'>
-              <Button w='30%' colorScheme='blackAlpha' p='6'>
-                Nominate
-              </Button>
+              {handleNominate && (
+                <Button
+                  margin={{base: '0 auto', lg: '0'}}
+                  w={{base: '70%', lg: '30%'}}
+                  colorScheme='blackAlpha'
+                  p='6'
+                  onClick={() => handleNominate(data)}>
+                  Nominate
+                </Button>
+              )}
+              {handleRemove && (
+                <Button
+                  margin={{base: '0 auto', lg: '0'}}
+                  w={{base: '70%', lg: '30%'}}
+                  colorScheme='red'
+                  p='6'
+                  onClick={() => handleRemove(data.imdbID)}>
+                  Remove
+                </Button>
+              )}
             </Flex>
           </Flex>
         </Flex>
