@@ -1,17 +1,16 @@
 import {
+  Badge,
+  Box,
+  Button,
+  Divider,
   Flex,
   Heading,
-  Button,
-  Text,
-  Box,
   Image,
-  Badge,
-  Divider,
+  Text,
 } from '@chakra-ui/react';
-import React, {useEffect, useState} from 'react';
-import {useQueryClient} from 'react-query';
-import {getCardBgColor} from '../utils/getCardBgColor';
+import React from 'react';
 import useMovieById from '../hooks/getMovieByID';
+import {getCardBgColor} from '../utils/getCardBgColor';
 import {getScoreBadgeColor} from '../utils/getScoreBadge';
 import {MovieDetailsProps} from './MovieList';
 
@@ -26,15 +25,8 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   handleNominate,
   handleRemove,
 }) => {
-  const queryClient = useQueryClient();
-  const [movieDetails, setMovieDetails] = useState();
+  // const queryClient = useQueryClient();
   const {data} = useMovieById(id);
-
-  useEffect(() => {
-    if (data !== undefined && data.Response !== 'False') {
-      setMovieDetails(data.Search);
-    }
-  });
 
   return (
     <Flex

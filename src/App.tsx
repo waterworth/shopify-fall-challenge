@@ -1,26 +1,24 @@
 import {
-  Box,
-  Image,
-  ChakraProvider,
-  Grid,
-  theme,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
   Badge,
+  Box,
+  ChakraProvider,
   Flex,
   Heading,
-  VStack,
+  Image,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  theme,
 } from '@chakra-ui/react';
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import logo from './assets/shopify-logo.png';
 import {ColorModeSwitcher} from './ColorModeSwitcher';
 import {MovieDetailsProps, MovieList} from './components/MovieList';
 import {Nominations} from './components/Nominations';
 import {Search} from './components/Search';
-import logo from './assets/shopify-logo.png';
 
 interface AppProps {}
 
@@ -55,7 +53,7 @@ export const App: React.FC<AppProps> = () => {
   const handleRemoveNomination = (imdbID: string) => {
     if (nominations) {
       const removeMovie = nominations.filter(
-        (movie: any) => movie.imdbID !== imdbID
+        (movie: MovieDetailsProps) => movie.imdbID !== imdbID
       );
       setNominations(removeMovie);
       // toast.error(`Movie removed from nominations`);

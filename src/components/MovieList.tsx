@@ -1,8 +1,6 @@
-import {Box} from '@chakra-ui/layout';
-import {Code, Flex} from '@chakra-ui/react';
-import axios from 'axios';
+import {Flex} from '@chakra-ui/react';
 import React, {useEffect, useState} from 'react';
-import {useQuery, useQueryClient} from 'react-query';
+import {v4 as uuid} from 'uuid';
 import useMovies from '../hooks/getMovies';
 import {MovieCard} from './MovieCard';
 
@@ -23,7 +21,6 @@ export const MovieList: React.FC<MovieListProps> = ({
   searchTerm,
   handleNominate,
 }) => {
-  const queryClient = useQueryClient();
   const [movieList, setMovieList] = useState<null | MovieDetailsProps[]>(null);
 
   const {data} = useMovies(searchTerm);
@@ -32,13 +29,17 @@ export const MovieList: React.FC<MovieListProps> = ({
     if (data !== undefined && data.Response !== 'False') {
       setMovieList(data.Search);
     }
-  });
+  }, [data]);
 
   return (
     <Flex w='100%' direction='column' alignItems='center'>
       {movieList
         ? movieList.map((movie) => (
-            <MovieCard id={movie.imdbID} handleNominate={handleNominate} />
+            <MovieCard
+              key={uuid()}
+              id={movie.imdbID}
+              handleNominate={handleNominate}
+            />
           ))
         : null}
     </Flex>
