@@ -19,7 +19,8 @@ export const Search: React.FC<SearchProps> = ({onChange}) => {
       borderColor='ink.lightest'
       borderWidth='1px'
       borderRadius='xl'
-      w='100%'>
+      w='70%'
+      margin='0 auto'>
       <InputGroup>
         <Flex direction='column' align='flex-start' w='100%'>
           <Heading size='l' pb='4'>

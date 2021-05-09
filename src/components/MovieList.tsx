@@ -1,9 +1,10 @@
 import {Box} from '@chakra-ui/layout';
-import {Code} from '@chakra-ui/react';
+import {Code, Flex} from '@chakra-ui/react';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useQuery, useQueryClient} from 'react-query';
 import useMovies from '../hooks/getMovies';
+import {MovieCard} from './MovieCard';
 
 interface MovieListProps {
   searchTerm: string;
@@ -30,10 +31,10 @@ export const MovieList: React.FC<MovieListProps> = ({searchTerm}) => {
   });
 
   return (
-    <Box w='100vw'>
+    <Flex w='100%' direction='column' alignItems='center'>
       {movieList
-        ? movieList.map((movie) => <Code>{JSON.stringify(movie)}</Code>)
+        ? movieList.map((movie) => <MovieCard id={movie.imdbID} />)
         : null}
-    </Box>
+    </Flex>
   );
 };
