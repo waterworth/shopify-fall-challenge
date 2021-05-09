@@ -15,6 +15,8 @@ import {
 import React, {ChangeEvent, useState} from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import logo from './assets/shopify-logo.png';
+import {Helmet} from 'react-helmet';
+import toast, {Toaster} from 'react-hot-toast';
 import {ColorModeSwitcher} from './ColorModeSwitcher';
 import {MovieDetailsProps, MovieList} from './components/MovieList';
 import {Nominations} from './components/Nominations';
@@ -40,13 +42,13 @@ export const App: React.FC<AppProps> = () => {
     }
     if (nominations && nominations.length < 5) {
       if (nominations.includes(movie)) {
-        // toast.error("You've already added that movie!");
+        toast.error("You've already added that movie!");
       } else {
         setNominations([...nominations, movie]);
-        // toast.success(`${movie.title} added to nominations`);
+        toast.success(`${movie.Title} added to nominations`);
       }
     } else {
-      // toast.error('Nominations are full!');
+      toast.error('Nominations are full!');
     }
   };
 
@@ -56,13 +58,36 @@ export const App: React.FC<AppProps> = () => {
         (movie: MovieDetailsProps) => movie.imdbID !== imdbID
       );
       setNominations(removeMovie);
-      // toast.error(`Movie removed from nominations`);
+      toast.error(`Removed from nominations`);
     }
   };
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Helmet>
+        <link rel='icon' type='image/png' href={logo} />
+        <title>The Shoppies</title>
+      </Helmet>
       <ChakraProvider theme={theme}>
+        <Toaster
+          position='top-right'
+          toastOptions={{
+            duration: 5000,
+            success: {
+              duration: 3000,
+              style: {
+                background: '#e3f1df',
+                color: '#414f3e',
+              },
+            },
+            error: {
+              style: {
+                background: '#bf0711',
+                color: 'white',
+              },
+            },
+          }}
+        />
         <Box textAlign='center' fontSize='xl'>
           <Flex direction='column' minH='100vh' p={3}>
             <Flex justifyContent='flex-end'>
