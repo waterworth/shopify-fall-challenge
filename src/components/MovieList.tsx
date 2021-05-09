@@ -29,7 +29,7 @@ export const MovieList: React.FC<MovieListProps> = ({
     if (data !== undefined && data.Response !== 'False') {
       setMovieList(data.Search);
     }
-  }, [data]);
+  });
 
   return (
     <Flex w='100%' direction='column' alignItems='center'>

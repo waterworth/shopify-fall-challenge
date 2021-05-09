@@ -25,7 +25,6 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   handleNominate,
   handleRemove,
 }) => {
-  // const queryClient = useQueryClient();
   const {data} = useMovieById(id);
 
   return (
