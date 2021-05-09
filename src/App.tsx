@@ -1,8 +1,19 @@
-import {Box, ChakraProvider, Grid, theme} from '@chakra-ui/react';
+import {
+  Box,
+  ChakraProvider,
+  Grid,
+  theme,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from '@chakra-ui/react';
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {ColorModeSwitcher} from './ColorModeSwitcher';
 import {MovieList} from './components/MovieList';
+import {Nominations} from './components/Nominations';
 import {Search} from './components/Search';
 
 interface AppProps {}
@@ -25,7 +36,20 @@ export const App: React.FC<AppProps> = () => {
             <Box>
               <Search onChange={handleChange} />
             </Box>
-            <MovieList searchTerm={input} />
+            <Tabs py='8'>
+              <TabList w='70%' margin='0 auto'>
+                <Tab w='50%'>Search Results</Tab>
+                <Tab w='50%'>Nomination List</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <MovieList searchTerm={input} />
+                </TabPanel>
+                <TabPanel>
+                  <Nominations />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </Grid>
         </Box>
       </ChakraProvider>
