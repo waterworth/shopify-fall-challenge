@@ -30,7 +30,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   return (
     <Flex
       m='8'
-      w='70%'
+      w={{base: '100%', md: '70%'}}
       color='gray.800'
       borderRadius='2xl'
       bgColor={data ? getCardBgColor(data.Genre) : 'white'}
@@ -43,56 +43,65 @@ export const MovieCard: React.FC<MovieCardProps> = ({
         <Flex direction={{base: 'column', lg: 'row'}} w='100%'>
           {data.Poster !== 'N/A' && (
             <Box margin={{base: '0 auto', lg: '0'}} mb={{base: '8', lg: '0'}}>
-              <Image minW='300px' src={data.Poster}></Image>
+              <Image minW={{lg: '300px'}} src={data.Poster}></Image>
             </Box>
           )}
           <Flex direction='column' justifyContent='space-between'>
             <Flex
+              direction={{base: 'column', lg: 'row'}}
               w='100%'
-              ml='8'
+              pl={{lg: '8'}}
               alignItems='center'
               justifyContent='space-between'>
-              <Heading textAlign='left' letterSpacing='wide'>
+              <Heading
+                fontSize={{base: '2xl', sm: '3xl', lg: '4xl'}}
+                textAlign='left'
+                letterSpacing='wide'>
                 {data ? data.Title : null}
               </Heading>
               <Badge
                 bgColor={data ? getScoreBadgeColor(data.Metascore) : 'white'}
                 color='gray.200'
+                mt={{base: '4', lg: '0'}}
                 py='2'
                 px='2'
-                fontSize='lg'
+                fontSize={{lg: 'lg'}}
                 borderRadius='lg'>
                 <Text fontSize='xx-small'>Metascore</Text>
                 {data ? data.Metascore : null}
               </Badge>
             </Flex>
-            <Flex mt='2' ml='8' alignItems='center'>
+            <Flex
+              direction={{base: 'column', lg: 'row'}}
+              mt={{base: '4', lg: '2'}}
+              ml={{lg: '8'}}
+              alignItems='center'>
               <Text
                 fontWeight='bold'
                 fontSize='md'
-                pr='4'
-                borderRight='1px solid'>
+                pr={{base: '0', lg: '4'}}
+                borderRight={{base: 'none', lg: '1px solid'}}>
                 {data ? data.Year : null}
               </Text>
               <Text
                 fontWeight='bold'
                 fontSize='md'
-                px='4'
-                borderRight='1px solid'>
+                px={{base: '0', lg: '4'}}
+                borderRight={{base: 'none', lg: '1px solid'}}>
                 {data ? data.Rated : null}
               </Text>
               <Text
                 fontWeight='bold'
                 fontSize='md'
-                px='4'
-                borderRight='1px solid'>
+                px={{base: '0', lg: '4'}}
+                borderRight={{base: 'none', lg: '1px solid'}}>
                 {data ? data.Runtime : null}
               </Text>
               <Text ml='4' fontStyle='italic' fontSize='md'>
                 {data ? data.Genre : null}
               </Text>
             </Flex>
-            <Flex direction='column' mt='4' ml='8'>
+            <Flex direction='column' mt='4' ml={{lg: '8'}}>
               <Text textAlign='left' fontSize='sm'>
                 {data ? 'Directed By: ' + data.Director : null}
               </Text>
@@ -100,10 +109,19 @@ export const MovieCard: React.FC<MovieCardProps> = ({
                 {data ? 'Starring: ' + data.Actors : null}
               </Text>
             </Flex>
-            <Divider w='30%' m='8' borderColor='gray.800' />
+            <Divider
+              w={{lg: '30%'}}
+              mx={{base: 0, lg: '8'}}
+              my={{base: '4', lg: '8'}}
+              borderColor='gray.800'
+            />
 
-            <Flex mt={{base: '0', lg: '8'}} ml='8'>
-              <Text textAlign='left'>{data ? data.Plot : null}</Text>
+            <Flex mt={{base: '0', lg: '8'}} ml={{lg: '8'}}>
+              <Text
+                fontSize={{base: 'sm', md: 'sm', xl: 'lg'}}
+                textAlign='left'>
+                {data ? data.Plot : null}
+              </Text>
             </Flex>
             <Flex mx='8' mt='8' mb='0'>
               {handleNominate && (

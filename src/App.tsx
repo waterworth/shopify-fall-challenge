@@ -103,7 +103,7 @@ export const App: React.FC<AppProps> = () => {
               <Search onChange={handleChange} />
             </Box>
             <Tabs py='8'>
-              <TabList w='70%' margin='0 auto'>
+              <TabList w={{base: '100%', md: '70%'}} margin='0 auto'>
                 <Tab w='50%'>Search Results 🔎</Tab>
                 <Tab w='50%'>
                   Nomination List 🏆

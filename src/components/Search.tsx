@@ -19,7 +19,7 @@ export const Search: React.FC<SearchProps> = ({onChange}) => {
       borderColor='ink.lightest'
       borderWidth='1px'
       borderRadius='xl'
-      w='70%'
+      w={{base: '100%', md: '70%'}}
       margin='0 auto'>
       <InputGroup>
         <Flex direction='column' align='flex-start' w='100%'>
